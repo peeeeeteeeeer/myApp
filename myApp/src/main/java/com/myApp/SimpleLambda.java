@@ -1,31 +1,26 @@
 package com.myApp;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class SimpleLambda implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
+public class SimpleLambda implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
     @Override
-    public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
-        // Extracting information from the API Gateway input
-        String httpMethod = (String) input.get("httpMethod");
-        String path = (String) input.get("path");
+    public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent input, Context context) {
+        APIGatewayProxyResponseEvent responseEvent = new APIGatewayProxyResponseEvent();
 
-        // Handling different HTTP methods
-        if ("GET".equals(httpMethod)) {
-            // Responding to a GET request
-            Map<String, String> responseBody = new HashMap<>();
-            responseBody.put("message", "Hello! You requested the resource at " + path);
+        // Log the request for debugging purposes
+        System.out.println("Received request: " + input.toString());
 
-            return new ApiGatewayResponse(200, responseBody);
-        } else {
-            // Responding with an error for unsupported methods
-            Map<String, String> responseBody = new HashMap<>();
-            responseBody.put("error", "Method " + httpMethod + " not supported");
+        // Your logic to handle the GET request and generate a response
+        String responseBody = "Hello from Lambda!";
+        int statusCode = 200;
 
-            return new ApiGatewayResponse(405, responseBody);
-        }
+        // Set the response properties
+        responseEvent.setStatusCode(statusCode);
+        responseEvent.setBody(responseBody);
+
+        return responseEvent;
     }
 }
