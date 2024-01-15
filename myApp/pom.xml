@@ -28,6 +28,12 @@
             <artifactId>aws-lambda-java-core</artifactId>
             <version>1.2.3</version>
         </dependency>
+    
+      <dependency>
+        <groupId>tk.k2zinger</groupId>
+        <artifactId>api-gateway-client</artifactId>
+        <version>0.2</version>
+      </dependency>
     </dependencies>
   
 
