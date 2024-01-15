@@ -1,20 +1,18 @@
 package com.myApp;
-import java.util.Map;
-
 public class ApiGatewayResponse {
-    private final int statusCode;
-    private final Map<String, ?> body;
+    private String body;
+    private int statusCode;
 
-    public ApiGatewayResponse(int statusCode, Map<String, ?> body) {
-        this.statusCode = statusCode;
+    public ApiGatewayResponse(String body, int statusCode) {
         this.body = body;
+        this.statusCode = statusCode;
+    }
+
+    public String getBody() {
+        return body;
     }
 
     public int getStatusCode() {
         return statusCode;
-    }
-
-    public Map<String, ?> getBody() {
-        return body;
     }
 }
