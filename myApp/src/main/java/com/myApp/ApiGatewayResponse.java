@@ -1,28 +1,19 @@
 package com.myApp;
 
-import com.amazonaws.http.HttpResponse;
-import com.amazonaws.util.IOUtils;
-
-import java.io.IOException;
-
 public class ApiGatewayResponse {
-    private final HttpResponse httpResponse;
-    private final String body;
+    private String body;
+    private int statusCode;
 
-    public ApiGatewayResponse(HttpResponse httpResponse) throws IOException {
-        this.httpResponse = httpResponse;
-        if (httpResponse.getContent() != null) {
-            this.body = IOUtils.toString(httpResponse.getContent());
-        } else {
-            this.body = null;
-        }
-    }
-
-    public HttpResponse getHttpResponse() {
-        return httpResponse;
+    public ApiGatewayResponse(String body, int statusCode) {
+        this.body = body;
+        this.statusCode = statusCode;
     }
 
     public String getBody() {
         return body;
+    }
+
+    public int getStatusCode() {
+        return statusCode;
     }
 }
